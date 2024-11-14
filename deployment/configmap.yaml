@@ -15,3 +15,13 @@ metadata:
 type: Opaque
 data:
   DB_PASSWORD: <base64-encoded-password>
+
+envFrom:
+- configMapRef:
+      name: coworking-config
+env:
+- name: DB_PASSWORD
+    valueFrom:
+      secretKeyRef:
+        name: coworking-secrets
+        key: DB_PASSWORD
