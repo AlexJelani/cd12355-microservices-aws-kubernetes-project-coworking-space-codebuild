@@ -1,0 +1,26 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: coworking
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      service: coworking
+  template:
+    metadata:
+      labels:
+        service: coworking
+    spec:
+      containers:
+      - name: coworking
+        image: 037170567112.dkr.ecr.us-east-1.amazonaws.com/coworking-analytics
+        envFrom:
+        - configMapRef:
+            name: coworking-config
+        env:
+        - name: DB_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: coworking-secrets
+              key: DB_PASSWORD
