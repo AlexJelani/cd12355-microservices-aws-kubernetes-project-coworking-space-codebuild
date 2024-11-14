@@ -6,14 +6,16 @@ phases:
       - aws ecr get-login-password --region us-east-1 | docker login --username AWS --password-stdin 037170567112.dkr.ecr.us-east-1.amazonaws.com
       - REPOSITORY_URI=037170567112.dkr.ecr.us-east-1.amazonaws.com/coworking-analytics
       - IMAGE_TAG=$CODEBUILD_BUILD_NUMBER
-  
+      - echo $DOCKERHUB_USERNAME
+      - echo $DOCKERHUB_PASSWORD | docker login --username $DOCKERHUB_USERNAME --password-stdin
+
   build:
     commands:
       - echo Build started on `date`
       - cd analytics
       - docker build -t $REPOSITORY_URI:$IMAGE_TAG .
       - docker tag $REPOSITORY_URI:$IMAGE_TAG $REPOSITORY_URI:latest
-  
+
   post_build:
     commands:
       - echo Build completed on `date`
