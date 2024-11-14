@@ -5,5 +5,5 @@ metadata:
 data:
   DB_USERNAME: postgres      # Changed from DB_USER to DB_USERNAME
   DB_NAME: postgres
-  DB_HOST: postgres-postgresql.default.svc.cluster.local
+  DB_HOST: postgresql-service    # Update this to match your actual service name
   DB_PORT: "5432"
